@@ -18,13 +18,13 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> _login() async {
     final response = await http.post(
-      Uri.parse('http://localhost:7000/user-login'),
+      Uri.parse('http://localhost:7000/api/login'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(<String, String>{
         'username': _username,
-        'phone': _phone,
+        'number': _phone,
         'password': _password,
       }),
     );
