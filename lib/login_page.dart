@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'home_page.dart';
 import 'auth_provider.dart';
+import 'register_page.dart'; // Import the RegisterPage
 
 class LoginPage extends StatefulWidget {
   @override
@@ -13,7 +14,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   String _username = '';
-  String _phone = '';
   String _password = '';
 
   Future<void> _login() async {
@@ -24,7 +24,6 @@ class _LoginPageState extends State<LoginPage> {
       },
       body: jsonEncode(<String, String>{
         'username': _username,
-        'number': _phone,
         'password': _password,
       }),
     );
@@ -47,9 +46,9 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Login Page'),
-      ),
+//       appBar: AppBar(
+//         title: Text('Login Page'),
+//       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -58,16 +57,22 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               TextFormField(
-                decoration: InputDecoration(labelText: 'Username'),
+//                 decoration: InputDecoration(labelText: 'Username'),
+ decoration: InputDecoration(
+                  labelText: 'Username',
+                  border: OutlineInputBorder(), // Add border
+                ),
                 onSaved: (value) => _username = value!,
               ),
+              SizedBox(
+              height: 10),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Phone Number'),
-                onSaved: (value) => _phone = value!,
-              ),
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Password'),
+                decoration: InputDecoration(
+                labelText: 'Password',
+                border: OutlineInputBorder(),
+                ),
                 obscureText: true,
+//                 border: OutlineInputBorder(),
                 onSaved: (value) => _password = value!,
               ),
               SizedBox(height: 20),
@@ -77,6 +82,16 @@ class _LoginPageState extends State<LoginPage> {
                   _login();
                 },
                 child: Text('Login'),
+              ),
+              SizedBox(height: 20),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => RegisterPage()),
+                  );
+                },
+                child: Text("If you are not a member, please register"),
               ),
             ],
           ),
